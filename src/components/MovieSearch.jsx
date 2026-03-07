@@ -142,26 +142,35 @@ export default function MovieSearch() {
   // ── EFFECTS ──────────────────────────────────────────────────────────────
 
   // Re-fetch when filters or mode change (not query — that's debounced separately)
-  useEffect(() => {
-    fetchMovies(1);
-  }, [sortBy, genreId, year, mode]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(
+    () => {
+      fetchMovies(1);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [sortBy, genreId, year, mode],
+  );
 
   // Debounced search — 500ms wait after user stops typing avoids spamming the API
-  useEffect(() => {
-    clearTimeout(searchTimer.current);
-    if (query.trim().length > 1) {
-      setIsSearching(true);
-      searchTimer.current = setTimeout(() => {
+  useEffect(
+    () => {
+      clearTimeout(searchTimer.current);
+      if (query.trim().length > 1) {
+        setIsSearching(true);
+        searchTimer.current = setTimeout(() => {
+          setPage(1);
+          fetchMovies(1);
+        }, 500);
+      } else if (query === "") {
+        setIsSearching(false);
         setPage(1);
         fetchMovies(1);
-      }, 500);
-    } else if (query === "") {
-      setIsSearching(false);
-      setPage(1);
-      fetchMovies(1);
-    }
-    return () => clearTimeout(searchTimer.current);
-  }, [query]);
+      }
+      return () => clearTimeout(searchTimer.current);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [query],
+  );
 
   // IntersectionObserver — watches the sentinel div at the bottom of the grid
   // When it enters the viewport, fetch the next page and append results
@@ -196,10 +205,14 @@ export default function MovieSearch() {
   }, []);
 
   // Fetch full details when a movie card is clicked
-  useEffect(() => {
-    if (selected) fetchDetail(selected.id);
-    else setDetails(null);
-  }, [selected]);
+  useEffect(
+    () => {
+      if (selected) fetchDetail(selected.id);
+      else setDetails(null);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selected],
+  );
 
   // ── WATCHLIST ─────────────────────────────────────────────────────────────
   function toggleWL(movie, e) {
