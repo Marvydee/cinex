@@ -33,4 +33,4 @@ triggered by a different user action.
 ---
 
 Stack: React · TMDB API · CSS  
-Live: [#](#)
+Live: https://cinexl.pages.dev/
