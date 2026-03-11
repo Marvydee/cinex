@@ -37,12 +37,12 @@ export default function MovieSearch() {
   const [sortBy, setSortBy] = useState("popularity.desc");
   const [genreId, setGenreId] = useState("");
   const [year, setYear] = useState("");
-  const [selected, setSelected] = useState(null); // card clicked → opens modal
-  const [details, setDetails] = useState(null); // full detail API response
+  const [selected, setSelected] = useState(null);
+  const [details, setDetails] = useState(null); 
   const [watchlist, setWatchlist] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [showTop, setShowTop] = useState(false);
-  const [hero, setHero] = useState(null); // featured movie in hero banner
+  const [hero, setHero] = useState(null); 
   const [isSearching, setIsSearching] = useState(false);
 
   // useEffect(() => {
@@ -53,13 +53,13 @@ export default function MovieSearch() {
   //   });
   // }, []);
   // Refs
-  const sentinelRef = useRef(null); // bottom div watched by IntersectionObserver
-  const searchTimer = useRef(null); // debounce timer
+  const sentinelRef = useRef(null);
+  const searchTimer = useRef(null); 
 
   const fetchMovies = useCallback(
     async (pg = 1, append = false) => {
       // console.log("fetchMovies triggered", pg);
-      // append=false → fresh results, append=true → infinite scroll adding more
+      
       if (pg === 1) setLoading(true);
       else setLoadingMore(true);
 
